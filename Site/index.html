@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>AutoVent</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<!-- Bootstrap JS -->
-<!-- <script href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
-<!-- Bootstrap JS Bundle -->
-<!-- <script href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script> -->
+<head>
+  <title>AutoVent</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Other Stylesheets -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<!-- HackKU Stylesheet -->
-<!-- <link rel="stylesheet" href="main.css"> -->
+  <!-- Bootstrap JS -->
+  <!-- <script href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
 
-<!-- update every 30 secs -->
-<!-- <body onload="currentConditions();forecast();updateSpots();window.setInterval(updateSpots, 30000)"> -->
+  <!-- Bootstrap JS Bundle -->
+  <!-- <script href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script> -->
 
+  <!-- Other Stylesheets -->
+  <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+  <link rel="stylesheet" href="main.css">
+  <script src="main.js"></script>
+
+</head>
+
+<!-- Automatically update every 30 secs -->
+<!-- <body onload="update();window.setInterval(update, 30000)"> -->
 <body>
 
   <!-- Navbar -->
@@ -30,11 +35,12 @@
     <a class="navbar-brand" href="">
       <img style="height:70px" src="AutoVent-logos_white.png">
     </a>
-    <ul class="navbar-nav">
+    <!-- If we want more pages -->
+    <!-- <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="#">Link 1</a>
       </li>
-    </ul>
+    </ul> -->
   </nav>
 
   <!-- Main -->
@@ -44,33 +50,43 @@
     </div>
 
     <div class="row">
-      <p>Outside Temp: </p>
+      <div class="col">
+        <p id="outTemp">Outside Temp: __F</p>
+      </div>
     </div>
 
     <div class="row">
-      <p>Inside Temp: </p>
+      <div class="col">
+        <p id="roomTemp">Inside Temp: __F</p>
+      </div>
     </div>
 
     <div class="row">
-      <p>Target Room: </p>
+      <div class="col">
+        <p id="setTemp">Target Room Temp: __F</p>
+      </div>
     </div>
 
     <div class="row">
-      <p>Window Status: </p>
+      <div class="col">
+        <p id="windowStatus">Window Status: </p>
+      </div>
     </div>
 
-    <div class="row border">
+    <div class="row">
+      <div class="col">
+        <button onclick="getFromServer()">Update</button>
+      </div>
+      <!-- Increments all values by 1 and toggles window status -->
+      <div class="col">
+        <button onclick="test()">Test</button>
+      </div>
+    </div>
+
+    <!-- Diagram, if there's time -->
+    <!-- <div class="row border">
       <p style="text-align:center" id="roomTemp">Room Temp</p>
-    </div>
-
-    <style>
-      .border {
-        display: inline-block;
-        width: 100%;
-        height: 100px;
-        margin: 6px;
-      }
-    </style>
+    </div> -->
   </div>
 
 </body>
