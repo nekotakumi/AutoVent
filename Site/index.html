@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>ParkingLot.Tech</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="parkinglot_art.jpg">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="main.css">
+
+<!-- update every 30 secs -->
+<body onload="currentConditions();forecast();updateSpots();window.setInterval(updateSpots, 30000)">
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-top w3-left-align w3-large" style="background-color:#212AE8">
+    <img style="height:70px" src="AutoVent-logos_white.png">
+  </div>
+</div>
+</div>
+
+<div class="w3-main" style="margin-left: 30px; margin-right: 30px">
+
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h1>AutoVent</h1>
+      <p>Check the State of the house</p>
+
+      <!-- Parking Spot Regions -->
+      <table class="parking_graph">
+        <tr>
+          <!-- use bgcolor="#EA2027" for red, #009432 for green -->
+          
+        </tr>
+      </table>
+
+
+          </div>
+
+
+          <!-- END MAIN -->
+
+          <script>
+            var full = 0;
+
+            function updateSpots() {
+              // reset spot counter before reading again
+              full = 0;
+              var feedURL = "https://api.thingspeak.com/channels/985815/feeds.json?results=2";
+
+              fetch(feedURL)
+                .then((response) => {
+                  return response.json();
+                })
+                .then((myJson) => {
+                  console.log("feed");
+                  console.log(myJson);
+
+                  var feedStream = myJson.feeds[0];
+
+                  if (feedStream.field1 == 0) {
+                    // apply green color
+                    document.getElementById("onePic").style.display = "none";
+                    full++;
+                  } else if (feedStream.field1 == 1) {
+                    // apply red color
+                    document.getElementById("onePic").style.display = "block";
+                  } else {
+                    console.err("Invalid response from server.");
+                  }
+
+                  if (feedStream.field2 == 0) {
+                    // apply green color
+                    document.getElementById("twoPic").style.display = "none";
+                    full++;
+                  } else if (feedStream.field2 == 1) {
+                    // apply red color
+                    document.getElementById("twoPic").style.display = "block";
+                  } else {
+                    console.err("Invalid response from server.");
+                  }
+
+                  if (feedStream.field3 == 0) {
+                    // apply green color
+                    document.getElementById("threePic").style.display = "none";
+                    full++;
+                  } else if (feedStream.field3 == 1) {
+                    // apply red color
+                    document.getElementById("threePic").style.display = "block";
+                  } else {
+                    console.err("Invalid response from server.");
+                  }
+
+                  updateFull();
+                });
+            }
+
+            function updateFull() {
+              document.getElementById("spots_left").innerHTML = "There are " + full + " spots available.";
+            }
+
+            function testFunction() {
+              document.getElementById("onePic").style.display = "block";
+            }
+          </script>
+        </div>
+
+        </body>
+
+</html>
